@@ -11,23 +11,23 @@ public class BatLocation
 {
 
     @JsonProperty("FsqId")
-    private int id;
+    private String id;
     
     @JsonProperty("FsqName")
     private String name;
 
-    @JsonProperty("Lat")
+    @JsonProperty("TargetLat")
     private double latitude;
 
-    @JsonProperty("Lng")
+    @JsonProperty("TargetLng")
     private double longitude;
 
-    private int getId()
+    private String getId()
     {
         return id;
     }
 
-    private void setId(int id)
+    private void setId(String id)
     {
         this.id = id;
     }

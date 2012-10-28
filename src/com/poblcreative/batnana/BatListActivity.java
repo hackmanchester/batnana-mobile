@@ -15,7 +15,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import com.poblcreative.batnana.adapter.BatLocationListAdapter;
 import com.poblcreative.batnana.geolocation.LatLonPoint;
 import com.poblcreative.batnana.models.BatLocation;
 import com.poblcreative.batnana.rest.BatLocationSearch;
@@ -30,6 +34,7 @@ public class BatListActivity extends Activity
 {
 
     public static final String NEARBY_BATS = "com.poblcreative.batnana.NEARBY_BATS";
+    protected ListView results;
     private static final String TAG = "BatListActivity";
     LocationManager locationManager;
     LocationListener locationListener;
@@ -42,11 +47,13 @@ public class BatListActivity extends Activity
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        
+        results = (ListView)findViewById(R.id.bat_list); 
 
         if (intent.getAction().equals(NEARBY_BATS)) {
-            // nearMeSearch();
-            BatTask task = new BatTask();
-            task.execute(new LatLonPoint(53.47620398396408, -2.2531387209892273));
+             nearMeSearch();
+//            BatTask task = new BatTask();
+//            task.execute(new LatLonPoint(53.47620398396408, -2.2531387209892273));
         }
     }
 
@@ -144,15 +151,27 @@ public class BatListActivity extends Activity
         protected void onPostExecute(ArrayList<BatLocation> result)
         {
             dialog.dismiss();
-            BatLocation batLocation = result.get(0);
+            
+            BatLocationListAdapter adapter = new BatLocationListAdapter(BatListActivity.this, R.layout.search_result_item, result);
+            results.setTextFilterEnabled(true);
+            results.setAdapter(adapter);
+            results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            Intent intent = new Intent(BatListActivity.this,
-                    BatMapActivity.class);
-            intent.setAction(BatMapActivity.SHOW_BATS);
-            intent.putExtra("latitude", batLocation.getLatitude());
-            intent.putExtra("longitude", batLocation.getLongitude());
-            intent.putExtra("name", batLocation.getName());
-            startActivity(intent);
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int item, long arg3)
+                {
+                    BatLocation batLocation = (BatLocation) results.getAdapter().getItem(item);
+
+                    Intent intent = new Intent(BatListActivity.this,
+                            BatMapActivity.class);
+                    intent.setAction(BatMapActivity.SHOW_BATS);
+                    intent.putExtra("latitude", batLocation.getLatitude());
+                    intent.putExtra("longitude", batLocation.getLongitude());
+                    intent.putExtra("name", batLocation.getName());
+                    startActivity(intent);
+                }
+                
+            });
         }
 
     }
@@ -183,9 +202,49 @@ public class BatListActivity extends Activity
         @Override
         protected ArrayList<BatLocation> doInBackground(Location... params)
         {
-            Location location = params[0];
+            Location latLonPoint = params[0];
+            Log.i(BatTask.TAG,
+                    "Looking for locations at Lat: "
+                            + latLonPoint.getLatitude() + ", Lng: "
+                            + latLonPoint.getLongitude());
 
-            return null;
+            BatLocationSearch search = new BatLocationSearch();
+            ArrayList<BatLocation> locations = search.search(
+                    latLonPoint.getLatitude(), latLonPoint.getLongitude(), 1609);
+
+            return locations;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+         */
+        @Override
+        protected void onPostExecute(ArrayList<BatLocation> result)
+        {
+            dialog.dismiss();
+            
+            BatLocationListAdapter adapter = new BatLocationListAdapter(BatListActivity.this, R.layout.search_result_item, result);
+            results.setTextFilterEnabled(true);
+            results.setAdapter(adapter);
+            results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int item, long arg3)
+                {
+                    BatLocation batLocation = (BatLocation) results.getAdapter().getItem(item);
+
+                    Intent intent = new Intent(BatListActivity.this,
+                            BatMapActivity.class);
+                    intent.setAction(BatMapActivity.SHOW_BATS);
+                    intent.putExtra("latitude", batLocation.getLatitude());
+                    intent.putExtra("longitude", batLocation.getLongitude());
+                    intent.putExtra("name", batLocation.getName());
+                    startActivity(intent);
+                }
+                
+            });
         }
 
     }

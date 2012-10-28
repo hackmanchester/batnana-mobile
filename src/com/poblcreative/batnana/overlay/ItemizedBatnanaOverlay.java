@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import com.google.android.maps.MapView;
 import com.poblcreative.batnana.CameraOverlayActivity;
+import com.poblcreative.batnana.geolocation.LatLonPoint;
 
 import java.util.ArrayList;
 
@@ -55,7 +56,10 @@ public class ItemizedBatnanaOverlay<Item extends BatnanaOverlayItem> extends
         // c.startActivity(intent);
         // }
 
+        LatLonPoint latLonPoint = (LatLonPoint) overlays.get(index).getPoint();
         Intent intent = new Intent(c, CameraOverlayActivity.class);
+        intent.putExtra("latitude", latLonPoint.getLatitude());
+        intent.putExtra("longitude", latLonPoint.getLongitude());
         c.startActivity(intent);
 
         return true;
