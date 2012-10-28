@@ -23,12 +23,13 @@ import com.poblcreative.batnana.R;
  * <li>layout/balloon_map_overlay.xml</li>
  * </ul>
  * </p>
- *
+ * 
  * @author Jeff Gilfelt
  * @author Shaun Rowe <shaun@poblcreative.com>
- *
+ * 
  */
-public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
+public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout
+{
 
     private LinearLayout layout;
     private TextView title;
@@ -36,12 +37,15 @@ public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
 
     /**
      * Create a new BalloonOverlayView.
-     *
-     * @param context - The activity context.
-     * @param balloonBottomOffset - The bottom padding (in pixels) to be applied
-     * when rendering this view.
+     * 
+     * @param context
+     *            - The activity context.
+     * @param balloonBottomOffset
+     *            - The bottom padding (in pixels) to be applied when rendering
+     *            this view.
      */
-    public BalloonOverlayView(Context context, int balloonBottomOffset) {
+    public BalloonOverlayView(Context context, int balloonBottomOffset)
+    {
 
         super(context);
 
@@ -57,7 +61,8 @@ public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
 
         ImageView close = (ImageView) v.findViewById(R.id.close_img_button);
         close.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 layout.setVisibility(GONE);
             }
         });
@@ -72,11 +77,13 @@ public class BalloonOverlayView<Item extends OverlayItem> extends FrameLayout {
 
     /**
      * Sets the view data from a given overlay item.
-     *
-     * @param item - The overlay item containing the relevant view data
-     * (title and snippet).
+     * 
+     * @param item
+     *            - The overlay item containing the relevant view data (title
+     *            and snippet).
      */
-    public void setData(Item item) {
+    public void setData(Item item)
+    {
 
         layout.setVisibility(VISIBLE);
         if (item.getTitle() != null) {

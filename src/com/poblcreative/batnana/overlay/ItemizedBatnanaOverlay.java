@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import com.google.android.maps.MapView;
+import com.poblcreative.batnana.CameraOverlayActivity;
+
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author Shaun Rowe <shaun@poblcreative.com>
  */
-public class ItemizedBatnanaOverlay<Item extends BatnanaOverlayItem> extends BalloonItemizedOverlay<BatnanaOverlayItem>
+public class ItemizedBatnanaOverlay<Item extends BatnanaOverlayItem> extends
+        BalloonItemizedOverlay<BatnanaOverlayItem>
 {
 
     private ArrayList<BatnanaOverlayItem> overlays = new ArrayList<BatnanaOverlayItem>();
@@ -43,14 +46,17 @@ public class ItemizedBatnanaOverlay<Item extends BatnanaOverlayItem> extends Bal
     @Override
     protected boolean onBalloonTap(int index, BatnanaOverlayItem item)
     {
-//        long id = overlays.get(index).getPropertyId();
+        // long id = overlays.get(index).getPropertyId();
 
-//        if(id != 0) {
-//            Intent intent = new Intent(c, ViewPropertyActivity.class);
-//            intent.setAction(ViewPropertyActivity.VIEW_PROPERTY);
-//            intent.putExtra("id", id);
-//            c.startActivity(intent);
-//        }
+        // if(id != 0) {
+        // Intent intent = new Intent(c, ViewPropertyActivity.class);
+        // intent.setAction(ViewPropertyActivity.VIEW_PROPERTY);
+        // intent.putExtra("id", id);
+        // c.startActivity(intent);
+        // }
+
+        Intent intent = new Intent(c, CameraOverlayActivity.class);
+        c.startActivity(intent);
 
         return true;
     }
@@ -63,7 +69,8 @@ public class ItemizedBatnanaOverlay<Item extends BatnanaOverlayItem> extends Bal
     @Override
     protected BatnanaBalloonOverlayView<BatnanaOverlayItem> createBalloonOverlayView()
     {
-        return new BatnanaBalloonOverlayView<BatnanaOverlayItem>(getMapView().getContext(), getBalloonBottomOffset());
+        return new BatnanaBalloonOverlayView<BatnanaOverlayItem>(getMapView()
+                .getContext(), getBalloonBottomOffset());
     }
 
 }

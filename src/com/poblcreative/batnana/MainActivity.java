@@ -9,9 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 
+/**
+ * 
+ * @author Shaun Rowe <shaun@poblcreative.com>
+ *
+ */
 public class MainActivity extends Activity
 {
-    
+
     private static final String TAG = "MainActivity";
 
     @Override
@@ -31,8 +36,9 @@ public class MainActivity extends Activity
     public void login(View buttonView)
     {
         Log.i(TAG, "Login clicked");
-        Intent intent = new Intent(this, BatMapActivity.class);
-        intent.setAction(BatMapActivity.SHOW_BATS);
+        // Intent intent = new Intent(this, BatListActivity.class);
+        // intent.setAction(BatListActivity.NEARBY_BATS);
+        Intent intent = new Intent(this, CameraOverlayActivity.class);
         startActivity(intent);
     }
 

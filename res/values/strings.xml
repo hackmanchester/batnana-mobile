@@ -7,5 +7,6 @@
     <string name="title_activity_map">Batnana Map</string>
     <string name="login_button">Login</string>
     <string name="welcome">Login to Batnanadar</string>
+    <string name="title_activity_bat_list">BatListActivity</string>
 
 </resources>

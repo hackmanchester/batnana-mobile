@@ -1,9 +1,10 @@
 package com.poblcreative.batnana.overlay;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;
 
 /**
- *
+ * 
  * @author Shaun Rowe <shaun@poblcreative.com>
  */
 public final class BatnanaOverlayItem extends OverlayItem
@@ -11,8 +12,9 @@ public final class BatnanaOverlayItem extends OverlayItem
 
     private long batnanaId;
     private String image;
-    
-    public BatnanaOverlayItem(GeoPoint point, String title, String snippet, long id)
+
+    public BatnanaOverlayItem(GeoPoint point, String title, String snippet,
+            long id)
     {
         super(point, title, snippet);
         setBatnanaId(id);
@@ -27,7 +29,8 @@ public final class BatnanaOverlayItem extends OverlayItem
     }
 
     /**
-     * @param batnanaId the propertyId to set
+     * @param batnanaId
+     *            the propertyId to set
      */
     public void setBatnanaId(long batnanaId)
     {
@@ -43,12 +46,12 @@ public final class BatnanaOverlayItem extends OverlayItem
     }
 
     /**
-     * @param image the image to set
+     * @param image
+     *            the image to set
      */
     public void setImage(String image)
     {
         this.image = image;
     }
 
-        
 }
